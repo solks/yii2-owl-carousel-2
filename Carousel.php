@@ -1,32 +1,22 @@
 <?php
 
-namespace dominus77\owlcarousel2;
+namespace custom\owlcarousel2;
 
 use Yii;
 use yii\base\Widget;
 use yii\web\JsExpression;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use dominus77\owlcarousel2\assets\OwlCarouselAsset;
-use dominus77\owlcarousel2\assets\AnimateCssAsset;
+use custom\owlcarousel2\assets\OwlCarouselAsset;
+use custom\owlcarousel2\assets\AnimateCssAsset;
 
-/**
- * Class Carousel
- * @package dominus77\owlcarousel2
- */
 class Carousel extends Widget
 {
     const THEME_DEFAULT = 'default';
     const THEME_GREEN = 'green';
 
-    /**
-     * @var string
-     */
     public $theme;
 
-    /**
-     * @var string
-     */
     public $tag = 'div';
 
     /**
@@ -34,19 +24,10 @@ class Carousel extends Widget
      */
     public $containerOptions = [];
 
-    /**
-     * @var string
-     */
     public $items = '';
 
-    /**
-     * @var array
-     */
     public $clientOptions = [];
 
-    /**
-     * @var string
-     */
     public $clientScript = '';
 
     private $_id;
@@ -65,9 +46,6 @@ class Carousel extends Widget
         $this->theme = $this->theme ? $this->theme : self::THEME_DEFAULT;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function run()
     {
         if (!empty($this->items)) {
@@ -78,24 +56,18 @@ class Carousel extends Widget
         }
     }
 
-    /**
-     * @return string
-     */
     public function getOptions()
     {
         $options = ArrayHelper::merge([], $this->clientOptions);
         return json_encode($options);
     }
 
-    /**
-     * @return static
-     */
     public function registerAssets()
     {
         $options = $this->getOptions();
         $view = $this->getView();
-        OwlCarouselAsset::$theme = $this->theme;
-        OwlCarouselAsset::register($view);
+//         OwlCarouselAsset::$theme = $this->theme;
+//         OwlCarouselAsset::register($view);
 
         if (isset($this->clientOptions['animateOut']) && (!empty($this->clientOptions['animateOut'])) ||
             (isset($this->clientOptions['animateIn']) && (!empty($this->clientOptions['animateIn'])))
@@ -103,18 +75,14 @@ class Carousel extends Widget
             AnimateCssAsset::register($view);
         }
 
+//         Temporary move to bundled.js
+//         $script = new JsExpression("
+//             $('#{$this->_id}').owlCarousel({$options});
+//         ");
+//         $view->registerJs($script);
+
         if (!empty($this->clientScript)) {
-            $script = new JsExpression("
-                var owl = $('#{$this->_id}');
-                owl.owlCarousel({$options});
-            ");
-            $view->registerJs($script);
             $view->registerJs($this->clientScript);
-        } else {
-            $script = new JsExpression("
-                $('#{$this->_id}').owlCarousel({$options});
-            ");
-            $view->registerJs($script);
         }
     }
 }
