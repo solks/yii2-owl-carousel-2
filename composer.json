@@ -1,8 +1,8 @@
 {
-    "name": "dominus77/yii2-owl-carousel-2",
+    "name": "solks/yii2-owl-carousel-2",
     "description": "Renders a Owl Carousel 2 widget for Yii2.",
     "type": "yii2-extension",
-    "keywords": ["dominus77","yii2","extension","widget","yii2-owl-carousel-2"],
+    "keywords": ["yii2","extension","widget","yii2-owl-carousel-2"],
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "dominus77\\owlcarousel2\\": ""
+            "custom\\owlcarousel2\\": ""
         }
     }
 }
